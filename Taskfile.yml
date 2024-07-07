@@ -1,0 +1,72 @@
+version: '3'
+
+env:
+  BIN: playground
+  PKG: github.com/dqfan2012/{{.BIN}}
+  LOCAL_VERSION:
+    sh: git describe --tags --always --dirty
+  IMAGE_NAME: "{{ .BIN }}:{{ .LOCAL_VERSION }}"
+  TEST_IMAGE_NAME: "{{ .BIN }}-test:{{ .LOCAL_VERSION }}"
+  GO_VERSION: 1.22
+  GO_CONTAINER: "golang:{{ .GO_VERSION }}"
+
+tasks:
+  default:
+    desc: "Display available tasks"
+    cmds:
+      - task --list
+
+  test-vars:
+    cmds:
+      - echo {{ .BIN }}
+      - echo {{ .PKG }}
+      - echo {{ .IMAGE_NAME }}
+      - echo {{ .TEST_IMAGE_NAME }}
+      - echo {{ .GO_VERSION }}
+      - echo {{ .GO_CONTAINER }}
+
+  test-cli-args:
+    cmds:
+      - echo {{.CLI_ARGS}}
+
+  build-docker:
+    desc: "Build the docker testing image"
+    cmds:
+      - docker build -t {{ .TEST_IMAGE_NAME }} -f build/Dockerfile --build-arg GO_VERSION={{ .GO_VERSION }} .
+
+  dep-tidy:
+    desc: "Remove unused dependencies and add missing dependencies"
+    deps: [build-docker]
+    cmds:
+      - docker run --rm -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "go mod tidy -go={{ .GO_VERSION }}"
+
+  update-dep:
+    desc: "Update specific dependencies"
+    summary: |
+      Update specific dependencies
+      
+      Example usage:
+        task update-dep golang.org/x/crypto
+    cmds:
+      - docker run --rm -v $(go env GOPATH)/pkg/mod:/go/pkg/mod -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "go get -u {{.CLI_ARGS}}"
+
+  vendor:
+    desc: "Update vendor packages and go.sum file"
+    cmds:
+      - docker run --rm -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "go mod vendor"
+
+  gofumpt:
+    desc: "Run the gofumpt linter"
+    deps: [build-docker]
+    cmds:
+      - docker run --rm -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "gofumpt -l -w ."
+
+  lint-go:
+    desc: "Run golangci-lint"
+    deps: [build-docker]
+    cmds:
+      - docker run --rm -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "golangci-lint run --fix"
+
+  lint:
+    desc: "Run all the linters."
+    deps: [build-docker, gofumpt, lint-go]
