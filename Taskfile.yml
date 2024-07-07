@@ -29,10 +29,21 @@ tasks:
     cmds:
       - echo {{.CLI_ARGS}}
 
+  artifacts:
+    desc: "Create the artifacts folder."
+    cmds:
+      - mkdir -p ./artifacts
+
   build-docker:
     desc: "Build the docker testing image"
     cmds:
       - docker build -t {{ .TEST_IMAGE_NAME }} -f build/Dockerfile --build-arg GO_VERSION={{ .GO_VERSION }} .
+
+  clean:
+    desc: "Clean up the vendor and artifacts folders."
+    cmds:
+      - rm -rf vendor/
+      - rm -rf artifacts/
 
   dep-tidy:
     desc: "Remove unused dependencies and add missing dependencies"
@@ -70,3 +81,9 @@ tasks:
   lint:
     desc: "Run all the linters."
     deps: [build-docker, gofumpt, lint-go]
+
+  test:
+    desc: "Run all Go tests."
+    deps: [artifacts, build-docker]
+    cmds:
+      - docker run --rm -v $(pwd):/app -w /app {{ .TEST_IMAGE_NAME }} sh -c "gocov test ./... | gocov-html > artifacts/report.html"
