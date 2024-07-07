@@ -8,7 +8,6 @@ type LinkedList[T comparable] interface {
 	DeleteAtPosition(position int) (any, bool, error)
 	DeleteHead() (any, bool)
 	DeleteTail() (any, bool)
-	IsPresent(data any) bool
 	InsertAtPosition(any, int) (bool, error)
 	InsertHead(data any) bool
 	InsertTail(data any) bool
@@ -21,6 +20,7 @@ type LinkedList[T comparable] interface {
 type ListHelper[T comparable] interface {
 	ClearList()
 	IsEmpty() bool
+	IsPresent(data any) bool
 	Len() int
 }
 
