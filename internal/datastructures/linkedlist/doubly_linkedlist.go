@@ -1,6 +1,9 @@
+// Package linkedlist implements the Linked List Data Structure.
 package linkedlist
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // DoublyLinkedList represents a singly linked list.
 type DoublyLinkedList struct {
@@ -21,6 +24,7 @@ func NewEmptyDoublyLinkedList() *DoublyLinkedList {
 // NewDoublyLinkedListWithHead creates a linked list with an initial head node.
 func NewDoublyLinkedListWithHead(data int) *DoublyLinkedList {
 	newNode := NewListNodeWithData(data)
+
 	return &DoublyLinkedList{
 		head:   newNode,
 		tail:   newNode,
@@ -38,7 +42,7 @@ func (list *DoublyLinkedList) ClearList() {
 // DeleteAtPosition deletes the node at the specified position.
 func (list *DoublyLinkedList) DeleteAtPosition(position int) (int, bool, error) {
 	if list.isInvalidPosition(position) {
-		return 0, false, fmt.Errorf("invalid position")
+		return 0, false, fmt.Errorf("%w: %d", ErrInvalidPosition, position)
 	}
 
 	if list.IsEmpty() {
@@ -49,6 +53,7 @@ func (list *DoublyLinkedList) DeleteAtPosition(position int) (int, bool, error) 
 	if position == 0 {
 		value = list.head.data
 		list.head = list.head.next
+
 		if list.head != nil {
 			list.head.prev = nil
 		} else {
@@ -67,6 +72,7 @@ func (list *DoublyLinkedList) DeleteAtPosition(position int) (int, bool, error) 
 
 	value = current.next.data
 	current.next = current.next.next
+
 	if current.next != nil {
 		current.next.prev = current
 	} else {
@@ -86,6 +92,7 @@ func (list *DoublyLinkedList) DeleteHead() (int, bool) {
 
 	value := list.head.data
 	list.head = list.head.next
+
 	if list.head != nil {
 		list.head.prev = nil
 	} else {
@@ -201,6 +208,7 @@ func (list *DoublyLinkedList) SetHeadIfEmpty(node *ListNode) bool {
 		list.head = node
 		list.tail = node
 		list.length++
+
 		return true
 	}
 

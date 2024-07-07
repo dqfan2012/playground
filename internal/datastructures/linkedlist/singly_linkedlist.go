@@ -1,12 +1,13 @@
+// Package linkedlist implements the Linked List Data Structure.
 package linkedlist
 
 import "fmt"
 
 // SinglyLinkedList represents a singly linked list.
 type SinglyLinkedList struct {
-	head   *ListNode
-	tail   *ListNode
-	length int
+	Head   *ListNode
+	Tail   *ListNode
+	Length int
 }
 
 // NewEmptySinglyLinkedList creates an empty linked list.
@@ -21,6 +22,7 @@ func NewEmptySinglyLinkedList() *SinglyLinkedList {
 // NewSinglyLinkedListWithHead creates a linked list with an initial head node.
 func NewSinglyLinkedListWithHead(data int) *SinglyLinkedList {
 	newNode := NewListNodeWithData(data)
+
 	return &SinglyLinkedList{
 		head:   newNode,
 		tail:   newNode,
@@ -39,7 +41,7 @@ func (list *SinglyLinkedList) ClearList() {
 func (list *SinglyLinkedList) DeleteAtPosition(position int) (int, bool, error) {
 	if list.isInvalidPosition(position) {
 		// return an error instead
-		return 0, false, fmt.Errorf("invalid position")
+		return 0, false, fmt.Errorf("%w: %d", ErrInvalidPosition, position)
 	}
 
 	if list.IsEmpty() {
@@ -48,8 +50,9 @@ func (list *SinglyLinkedList) DeleteAtPosition(position int) (int, bool, error) 
 
 	var value int
 	if position == 0 {
-		value = list.head.data
-		list.head = list.head.next
+		value = list.head.Data
+		list.head = list.head.Next
+
 		if list.head == nil {
 			list.tail = nil
 		}
@@ -61,12 +64,13 @@ func (list *SinglyLinkedList) DeleteAtPosition(position int) (int, bool, error) 
 
 	current := list.head
 	for i := 0; i < position-1; i++ {
-		current = current.next
+		current = current.Next
 	}
 
-	value = current.next.data
-	current.next = current.next.next
-	if current.next == nil {
+	value = current.Next.Data
+	current.Next = current.Next.Next
+
+	if current.Next == nil {
 		list.tail = current
 	}
 
@@ -192,10 +196,21 @@ func (list *SinglyLinkedList) SetHeadIfEmpty(newNode *ListNode) bool {
 		list.head = newNode
 		list.tail = newNode
 		list.length++
+
 		return true
 	}
 
 	return false
+}
+
+// GetHead returns the head of the list.
+func (list *SinglyLinkedList) GetHead() *ListNode {
+	return list.head
+}
+
+// GetTail returns the tail of the list.
+func (list *SinglyLinkedList) GetTail() *ListNode {
+	return list.tail
 }
 
 // Size returns the size of the list.

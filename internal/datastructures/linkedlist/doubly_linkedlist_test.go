@@ -1,17 +1,19 @@
-package linkedlist
+package linkedlist_test
 
 import (
 	"testing"
+
+	"github.com/dqfan2012/playground/internal/datastructures/linkedlist"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestDoublyLinkedListInitialization(t *testing.T) {
-	linkedList := NewEmptyDoublyLinkedList()
+	linkedList := linkedlist.DoublyLinkedList.NewEmptyDoublyLinkedList()
 	assert.Equal(t, 0, linkedList.Size())
 	assert.True(t, linkedList.IsEmpty())
 
-	linkedListWithHead := NewDoublyLinkedListWithHead(10)
+	linkedListWithHead := linkedlist.DoublyLinkedList.NewDoublyLinkedListWithHead(10)
 	assert.Equal(t, 1, linkedListWithHead.Size())
 	assert.Equal(t, 10, linkedListWithHead.head.data)
 	assert.Equal(t, 10, linkedListWithHead.tail.data)

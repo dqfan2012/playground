@@ -1,19 +1,22 @@
-package linkedlist
+package linkedlist_test
 
 import (
 	"testing"
+
+	"github.com/dqfan2012/playground/internal/datastructures/linkedlist"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestLinkedListInitialization(t *testing.T) {
-	linkedList := NewEmptySinglyLinkedList()
-	assert.Equal(t, 0, linkedList.length)
-	assert.Nil(t, linkedList.head)
+	linkedList := linkedlist.NewEmptySinglyLinkedList()
+	assert.Equal(t, 0, linkedList.Size())
+	assert.Nil(t, linkedList.GetHead())
 
-	linkedListWithHead := NewSinglyLinkedListWithHead(10)
-	assert.Equal(t, 1, linkedListWithHead.length)
-	assert.Equal(t, 10, linkedListWithHead.head.data)
+	linkedListWithHead := linkedlist.NewSinglyLinkedListWithHead(10)
+	head := linkedListWithHead.GetHead()
+	assert.Equal(t, 1, linkedListWithHead.Size())
+	assert.Equal(t, 10, head.Data)
 }
 
 func TestInsertHead(t *testing.T) {
