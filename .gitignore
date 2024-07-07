@@ -23,3 +23,22 @@ go.work.sum
 
 # env file
 .env
+
+# Code editor files
+.vscode/
+.idea/
+*.atom/
+.atom/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+.vim/
+.vimrc
+.tmp
+*.kate-swp
+*.komodoproject
+*.geany
+.settings
+.cproject
+.project
