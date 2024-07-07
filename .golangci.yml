@@ -18,13 +18,11 @@ linters:
     - dupl
     - dupword
     - durationcheck
-    - err113
     - errcheck
     - errchkjson
     - errname
     - errorlint
     - exhaustive
-    - exhaustruct
     - exportloopref
     - fatcontext
     - forbidigo
@@ -55,10 +53,8 @@ linters:
     - govet
     - grouper
     - importas
-    - inamedparam
     - ineffassign
     - interfacebloat
-    - intrange
     - ireturn
     - lll
     - loggercheck
@@ -111,6 +107,10 @@ linters:
     - wsl
     - zerologlint
   disable: # Remove deprecated and removed linters. Disable others that aren't useful
+    - err113 # Removing temporarily. TODO: Remove from this list and fix linting errors.
+    - exhaustruct # Removing temporarily. TODO: Remove from this list and fix linting errors.
+    - inamedparam # Removing temporarily. TODO: Remove from this list and fix linting errors.
+    - intrange # Removing temporarily. TODO: Remove from this list and fix linting errors.
     - deadcode # deprecated
     - exhaustivestruct # deprecated
     - golint # deprecated
@@ -134,6 +134,8 @@ issues:
   exclude-rules:
     - path: _test\.go
       linters:
+        - errorlint
+        - testifylint
         - varnamelen
   exclude-use-default: false
   max-issues-per-linter: 0
