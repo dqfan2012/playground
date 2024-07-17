@@ -3,6 +3,9 @@ package linkedlist
 
 import "errors"
 
+// ErrInvalidPosition is an error indicating an invalid position in the linked list.
+var ErrInvalidPosition = errors.New("invalid position")
+
 // LinkedList interface defines the operations for a linked list.
 type LinkedList[T comparable] interface {
 	DeleteAtPosition(position int) (any, bool, error)
@@ -23,6 +26,3 @@ type ListHelper[T comparable] interface {
 	IsPresent(data any) bool
 	Len() int
 }
-
-// ErrInvalidPosition is an error indicating an invalid position in the linked list.
-var ErrInvalidPosition = errors.New("invalid position")
