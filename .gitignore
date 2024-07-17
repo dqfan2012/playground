@@ -45,3 +45,5 @@ go.work.sum
 .settings
 .cproject
 .project
+
+.DS_Store
