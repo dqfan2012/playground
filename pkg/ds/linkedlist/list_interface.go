@@ -14,7 +14,6 @@ type LinkedList[T comparable] interface {
 	InsertAtPosition(any, int) (bool, error)
 	InsertHead(data any) bool
 	InsertTail(data any) bool
-	SetHeadIfEmpty(newNode *ListNode[T]) bool
 	GetHead() *ListNode[T]
 	GetTail() *ListNode[T]
 }
@@ -22,6 +21,7 @@ type LinkedList[T comparable] interface {
 // ListHelper interface defines additional operations for a linked list.
 type ListHelper[T comparable] interface {
 	ClearList()
+	SetHeadIfEmpty(newNode *ListNode[T]) bool
 	IsEmpty() bool
 	IsPresent(data any) bool
 	Len() int
