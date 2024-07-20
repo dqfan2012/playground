@@ -12,6 +12,6 @@ type Stacker[T comparable] interface {
 	Push(T)
 	Pop() (*T, error)
 	Peek() (*T, error)
-	IsEmpty()
-	Len()
+	IsEmpty() bool
+	Len() int
 }

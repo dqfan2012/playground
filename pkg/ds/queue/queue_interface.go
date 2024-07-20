@@ -7,7 +7,7 @@ import "errors"
 // dequeue an item from the queue.
 var ErrEmptyQueue = errors.New("empty queue")
 
-// Queueer defines the operations for a queue.
+// Queuer defines the operations for a queue.
 type Queuer[T comparable] interface {
 	Enqueue(T)
 	Dequeue() (*T, error)
