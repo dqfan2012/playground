@@ -64,12 +64,12 @@ func (s *Set[T]) Union(setB *Set[T]) *Set[T] {
 	newSet := New[T]()
 
 	// Loop through the items in the first set and add them to the new set.
-	for k, _ := range s.items {
+	for k := range s.items {
 		newSet.Add(k)
 	}
 
 	// Loop through the items in the second set and add them to the new set.
-	for k, _ := range setB.items {
+	for k := range setB.items {
 		newSet.Add(k)
 	}
 
@@ -86,7 +86,7 @@ func (s *Set[T]) Intersection(setB *Set[T]) *Set[T] {
 	// Create a new set
 	newSet := New[T]()
 
-	for k, _ := range s.items {
+	for k := range s.items {
 		if _, exists := setB.items[k]; exists {
 			newSet.Add(k)
 		}
@@ -106,14 +106,14 @@ func (s *Set[T]) Difference(setB *Set[T]) *Set[T] {
 	newSet := New[T]()
 
 	// Add the unique items from the current set to the new set.
-	for k, _ := range s.items {
+	for k := range s.items {
 		if _, exists := setB.items[k]; !exists {
 			newSet.Add(k)
 		}
 	}
 
 	// Add the unique items in setB to the new set.
-	for k, _ := range setB.items {
+	for k := range setB.items {
 		if _, exists := s.items[k]; !exists {
 			newSet.Add(k)
 		}
@@ -131,7 +131,7 @@ func (s *Set[T]) IsSubset(setB *Set[T]) bool {
 	defer s.mu.Unlock()
 
 	// Add the unique items in setB to the new set.
-	for k, _ := range setB.items {
+	for k := range setB.items {
 		if _, exists := s.items[k]; !exists {
 			return false
 		}
