@@ -10,6 +10,7 @@ The `ds` package provides implementations for fundamental data structures in Go,
 - **Doubly Linked List**: Allows traversal in both directions and efficient element removal.
 - **Queue**: Implements a standard first-in, first-out (FIFO) queue.
 - **Priority Queue**: A queue where elements are dequeued based on priority.
+- **Stack**: Implements a standard last-in, first-out (LIFO) stack.
 
 ## Installation
 
