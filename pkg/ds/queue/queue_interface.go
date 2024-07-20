@@ -7,10 +7,10 @@ import "errors"
 // dequeue an item from the queue.
 var ErrEmptyQueue = errors.New("empty queue")
 
-// IQueue defines the operations for a queue.
-type IQueue[T comparable] interface {
+// Queueer defines the operations for a queue.
+type Queuer[T comparable] interface {
 	Enqueue(T)
-	Dequeue() (T, error)
+	Dequeue() (*T, error)
 	IsEmpty() bool
 	Len() int
 }
