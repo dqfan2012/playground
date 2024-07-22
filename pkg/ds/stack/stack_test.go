@@ -10,13 +10,13 @@ import (
 
 type StackTestSuite struct {
 	suite.Suite
-	// Demonstrate that the queue works with multiple data types
+	// Demonstrate that the Stack works with multiple data types
 	stack       *stack.Stack[int]
 	stringStack *stack.Stack[string]
 	floatStack  *stack.Stack[float64]
 }
 
-func TestQueueTestSuite(t *testing.T) {
+func TestStackTestSuite(t *testing.T) {
 	suite.Run(t, new(StackTestSuite))
 }
 

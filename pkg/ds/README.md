@@ -12,6 +12,7 @@ The `ds` package provides implementations for fundamental data structures in Go,
 - **Priority Queue**: A queue where elements are dequeued based on priority.
 - **Set**: An implementation of standard sets.
 - **Stack**: Implements a standard last-in, first-out (LIFO) stack.
+- **Hashmap**: Custom implementation of a hashmap for educational purposes. For practical applications, use Go’s built-in map.
 
 ## Installation
 

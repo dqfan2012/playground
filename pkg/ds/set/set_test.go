@@ -10,13 +10,13 @@ import (
 
 type SetTestSuite struct {
 	suite.Suite
-	// Demonstrate that the queue works with multiple data types
+	// Demonstrate that the Set works with multiple data types
 	set       *set.Set[int]
 	stringSet *set.Set[string]
 	floatSet  *set.Set[float64]
 }
 
-func TestQueueTestSuite(t *testing.T) {
+func TestSetTestSuite(t *testing.T) {
 	suite.Run(t, new(SetTestSuite))
 }
 
