@@ -18,10 +18,10 @@ type HashMap[T comparable] struct {
 }
 
 // NewHashMap creates and returns a new HashMap with a specified number of buckets.
-func NewHashMap[T comparable](len int) *HashMap[T] {
+func NewHashMap[T comparable](size int) *HashMap[T] {
 	return &HashMap[T]{
-		buckets: make([]*MapNode[T], len),
-		len:     len,
+		buckets: make([]*MapNode[T], size),
+		len:     size,
 	}
 }
 
@@ -53,6 +53,7 @@ func (h *HashMap[T]) Insert(key string, value T) {
 		for current.next != nil && current.key != key {
 			current = current.next
 		}
+
 		if current.key == key {
 			current.value = value
 		} else {
@@ -74,6 +75,7 @@ func (h *HashMap[T]) Get(key string) (*T, bool) {
 		if current.key == key {
 			return &current.value, true
 		}
+
 		current = current.next
 	}
 
@@ -87,6 +89,7 @@ func (h *HashMap[T]) Delete(key string) {
 
 	index := h.hash(key)
 	current := h.buckets[index]
+
 	var prev *MapNode[T]
 
 	for current != nil {
@@ -96,8 +99,10 @@ func (h *HashMap[T]) Delete(key string) {
 			} else {
 				prev.next = current.next
 			}
+
 			return
 		}
+
 		prev = current
 		current = current.next
 	}

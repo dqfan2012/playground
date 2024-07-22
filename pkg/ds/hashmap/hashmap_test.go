@@ -1,10 +1,10 @@
 package hashmap_test
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
 
 	"github.com/dqfan2012/playground/pkg/ds/hashmap"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
